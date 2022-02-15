@@ -31,7 +31,7 @@ app.get("/contact", (req, res) => {
 
 // Compose page routings
 app.get("/compose", (req, res) => {
-  res.render("compose");
+  res.render("compose");  
 })
 
 app.post("/compose", (req,res) => {
