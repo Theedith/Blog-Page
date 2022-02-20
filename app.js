@@ -28,17 +28,14 @@ const homeSchema = new mongoose.Schema({ description: String })
 const blogModel = new mongoose.model("blog", blogSchema);
 const homeModel = new mongoose.model("home", homeSchema);
 
-var postItems = [];
 
 // Home routings or root routings
 app.get("/", (req, res) => {  
   
-  console.log("Executed first");
   blogModel.find((err, docs) => {
     if (err) {
       console.log(err);
     } else {
-      console.log(docs);
       res.render("home", {startingContent: homeStartingContent, content: docs});
     }
   });
@@ -67,23 +64,26 @@ app.post("/compose", (req,res) => {
     description: req.body.postContent 
   })
   blog.save(err => {
-    if (!err) 
-      console.log("Post saved successfully");
+    if (err) 
+      console.log(err);
   });
   res.redirect("/");
 })
 
 // Posts routing
 app.get("/posts/:parameters", (req, res) => {
-  const parameters = _.lowerCase(req.params.parameters);
+  const parameters = req.params.parameters;
+  // blogItems.forEach(element => { 
+  //   const titleLower = _.lowerCase(element.postTitle)
+  //   if (titleLower === parameters){
+      // res.render("post", {postHeading: element.postTitle, postContent: element.postContent});
+  //   }
+  // });
 
-  blogItems.forEach(element => { 
-    const titleLower = _.lowerCase(element.postTitle)
-    if (titleLower === parameters){
-      res.render("post", {postHeading: element.postTitle, postContent: element.postContent});
-    }
-  });
-
+  blogModel.findOne({title: parameters}, (err, docs) => {
+      if (!err) 
+        res.render("post", {postHeading: docs.title, postContent: docs.description});
+  })
 })
 
 app.listen(3000, function() {
