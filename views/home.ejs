@@ -5,5 +5,5 @@
         <% let truncatePostContent = element.description.substring(0, 100) + "..."; %>
         <h1> <%= element.title %> </h1>
         <p> <%= truncatePostContent %> <a href="posts/ <%= element.title %>"> Read More</a></p>
-    <% }) %>
+        <% }) %>
 <%- include("partials/footer"); -%>
