@@ -16,7 +16,7 @@ const contactContent = "Scelerisque eleifend donec pretium vulputate sapien. Rho
 
 
 // Eastablishing connection with mongodb localhost
-mongoose.connect("mongodb://localhost:27017/Personal-Blog-Database").then(() => {
+mongoose.connect("mongodb+srv://PankajSingh:Pankaj%401003@cluster0.8o0wu.mongodb.net/Personal-Blog-Database?retryWrites=true&w=majority", {useNewUrlParser: true}).then(() => {
   console.log("connection successfull");
 }).catch((err) => {
   console.log(err);
@@ -64,10 +64,9 @@ app.post("/compose", (req,res) => {
     description: req.body.postContent 
   })
   blog.save(err => {
-    if (err) 
-      console.log(err);
+    if (!err)
+      res.redirect("/");
   });
-  res.redirect("/");
 })
 
 // Posts routing
