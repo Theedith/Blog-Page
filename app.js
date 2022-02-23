@@ -72,12 +72,6 @@ app.post("/compose", (req,res) => {
 // Posts routing
 app.get("/posts/:parameters", (req, res) => {
   const parameters = req.params.parameters;
-  // blogItems.forEach(element => { 
-  //   const titleLower = _.lowerCase(element.postTitle)
-  //   if (titleLower === parameters){
-      // res.render("post", {postHeading: element.postTitle, postContent: element.postContent});
-  //   }
-  // });
 
   blogModel.findOne({title: parameters}, (err, docs) => {
       if (!err) 
