@@ -72,8 +72,9 @@ app.post("/compose", (req,res) => {
 // Posts routing
 app.get("/posts/:parameters", (req, res) => {
   const parameters = req.params.parameters;
+  console.log(typeof parameters);
 
-  blogModel.findOne({title: parameters}, (err, docs) => {
+  blogModel.findOne({_id: parameters}, (err, docs) => {
       if (!err) 
         res.render("post", {postHeading: docs.title, postContent: docs.description});
   })
